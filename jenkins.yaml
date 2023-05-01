@@ -1,0 +1,16 @@
+# this image does not support jdk17
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    ports:
+      - "8086:8080"
+      - "50000:50000"
+    environment:
+      DOCKER_HOST: tcp://host.docker.internal:2375
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - "//./pipe/docker_engine:/var/run/docker.sock"
+  
+volumes:
+  jenkins_home:

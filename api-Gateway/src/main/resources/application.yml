@@ -1,0 +1,26 @@
+##spring:
+##  cloud:
+##    gateway:
+##      discovery:
+##        locator:
+##          enabled: true
+##      routes:
+##        - id: ratings-data-service
+##          uri: lb://RATING-DATA-SERVICE
+##          predicates:
+#
+##          - Path: /ratingsdata/**
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: ratings-data-service
+#          uri: lb://RATING-DATA-SERVICE
+#          predicates:
+#          - Path=/ratingsdata/**
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

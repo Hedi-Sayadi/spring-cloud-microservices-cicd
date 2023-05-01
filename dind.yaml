@@ -1,0 +1,16 @@
+# this image support jdk17
+services:
+  jenkins:
+    container_name: jenkins_jdk
+    image: jenkins/jenkins:jdk17-preview
+    ports:
+      - "8087:8080"
+      - "50001:50000"
+    environment:
+      DOCKER_HOST: tcp://host.docker.internal:2375
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      # - "//./pipe/docker_engine:/var/run/docker.sock"
+  
+volumes:
+  jenkins_home:
