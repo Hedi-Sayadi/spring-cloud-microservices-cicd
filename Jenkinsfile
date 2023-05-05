@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
     tools {
@@ -9,14 +10,16 @@ pipeline {
 
     } 
     stages {
+        stage ("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage ("build jar api-gateway") {
             steps {
-                dir ('api-Gateway') {
-                script {
-                    echo 'building the application'
-                    sh 'mvn package'
-                }
-                }
+               gv.packageApp('api-Gateway')
             }
         }
         stage("build and push docker images for api-gateway "){
