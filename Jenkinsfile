@@ -17,10 +17,13 @@ pipeline {
                 }
             }
         }
+        // stage ("build jar api-gateway") {
+        //     steps {
+        //        gv.packageApp('api-Gateway')
+        //     }
+        // }
         stage ("build jar api-gateway") {
-            steps {
                gv.packageApp('api-Gateway')
-            }
         }
         stage("build and push docker images for api-gateway "){
             steps {
