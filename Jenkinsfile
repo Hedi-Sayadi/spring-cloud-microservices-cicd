@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir ('api-Gateway') {
                script {
-                         sh 'docker build -t hedisayadi/api-gateway .'
+                         sh 'docker build -t hedisayadi/api-gateway:2.0 .'
                          sh 'export DOCKER_CLIENT_TIMEOUT=120'
                          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                          sh 'docker push hedisayadi/api-gateway:2.0'
