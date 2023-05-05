@@ -9,22 +9,26 @@ pipeline {
 
     } 
     stages {
-        stage ("build jar") {
+        stage ("build jar api-gateway") {
             steps {
+                dir ('api-Gateway') {
                 script {
                     echo 'building the application'
                     sh 'mvn package'
                 }
+                }
             }
         }
-        stage("build docker image"){
+        stage("build and push docker images for api-gateway "){
             steps {
+                dir ('api-Gateway') {
                script {
                          sh 'docker build -t hedisayadi/test_cicd:1.0 .'
                          sh 'export DOCKER_CLIENT_TIMEOUT=120'
                          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                         sh 'docker push hedisayadi/test_cicd:1.0'
+                         sh 'docker push hedisayadi/api-gateway:2.0'
        
+                }
                 }
             }
         }
