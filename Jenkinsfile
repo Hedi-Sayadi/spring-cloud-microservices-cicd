@@ -1,4 +1,4 @@
-def gv
+// def gv
 pipeline {
     agent any
     tools {
@@ -6,27 +6,18 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
-        IMAGE_NAME = 'my-dockerhub-username/my-image-name'
+        // IMAGE_NAME = 'my-dockerhub-username/my-image-name'
 
     } 
-    stages {
-        stage ("init") {
-            steps {
-                script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-        // stage ("build jar api-gateway") {
-        //       steps {
-        //         dir ('api-Gateway') {
-        //         script {
-        //             echo 'building the application'
-        //             sh 'mvn package'
-        //         }
-        //         }
-        //         }
-        // }
+    // stages {
+    //     stage ("init") {
+    //         steps {
+    //             script {
+    //                 gv = load "script.groovy"
+    //             }
+    //         }
+    //     }
+       
 
     // 1/  *********Microservice : api-Gateway*********** 
         
@@ -122,7 +113,7 @@ pipeline {
                 echo 'testing the app ...'
             }
         }
-        stage("deploy"){
+        stage("running-servers"){
             
             steps{
                 sh 'docker compose -f run-servers.yaml up -d'
