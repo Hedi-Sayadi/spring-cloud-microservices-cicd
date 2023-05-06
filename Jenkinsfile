@@ -108,11 +108,11 @@ pipeline {
                 }
             }
         }
-        // stage("test"){
-        //     steps{
-        //         echo 'testing the app ...'
-        //     }
-        // }
+        stage("test"){
+            steps{
+                echo 'testing the app ...'
+            }
+        }
         // stage("running-servers"){
             
         //     steps{
