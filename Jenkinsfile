@@ -9,14 +9,14 @@ pipeline {
         // IMAGE_NAME = 'my-dockerhub-username/my-image-name'
 
     } 
-    // stages {
-    //     stage ("init") {
-    //         steps {
-    //             script {
-    //                 gv = load "script.groovy"
-    //             }
-    //         }
-    //     }
+    stages {
+        // stage ("init") {
+        //     steps {
+        //         script {
+        //             gv = load "script.groovy"
+        //         }
+        //     }
+        // }
        
 
     // 1/  *********Microservice : api-Gateway*********** 
@@ -113,11 +113,11 @@ pipeline {
                 echo 'testing the app ...'
             }
         }
-        stage("running-servers"){
+        // stage("running-servers"){
             
-            steps{
-                sh 'docker compose -f run-servers.yaml up -d'
-            }
-        }
+        //     steps{
+        //         sh 'docker compose -f run-servers.yaml up -d'
+        //     }
+        // }
     }
 }
