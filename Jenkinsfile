@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
-            IMAGE_NAME = 'my-dockerhub-username/my-image-name'
+        IMAGE_NAME = 'my-dockerhub-username/my-image-name'
 
     } 
     stages {
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 dir ('api-Gateway') {
                script {
-                         echo 'building the application'
+                        echo 'building the application'
                          sh 'mvn package'
                          sh 'docker build -t hedisayadi/api-gateway:1.0 .'
                          sh 'export DOCKER_CLIENT_TIMEOUT=120'
@@ -89,7 +89,7 @@ pipeline {
                 dir ('movie-info-service') {
                script {
                          echo 'building the application'
-                         sh 'mvn package'
+                         sh 'mvn package -DskipTests'
                          sh 'docker build -t hedisayadi/movie-info-service:1.0 .'
                          sh 'export DOCKER_CLIENT_TIMEOUT=120'
                          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -107,7 +107,7 @@ pipeline {
                 dir ('ratings-data-service') {
                script {
                          echo 'building the application'
-                         sh 'mvn package'
+                         sh 'mvn package -DskipTests'
                          sh 'docker build -t hedisayadi/ratings-data-service:1.0 .'
                          sh 'export DOCKER_CLIENT_TIMEOUT=120'
                          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -125,7 +125,7 @@ pipeline {
         stage("deploy"){
             
             steps{
-                echo 'deploying the app ...'
+                sh 'docker compose -f run-servers.yaml up -d'
             }
         }
     }
