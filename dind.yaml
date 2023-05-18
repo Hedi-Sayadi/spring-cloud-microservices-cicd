@@ -10,7 +10,6 @@ services:
       DOCKER_HOST: tcp://host.docker.internal:2375
     volumes:
       - jenkins_home:/var/jenkins_home
-      # - "//./pipe/docker_engine:/var/run/docker.sock"
   
 volumes:
   jenkins_home:
