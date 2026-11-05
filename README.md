@@ -97,4 +97,4 @@ Configure a Jenkins credential with the ID `docker-hub-credentials` before runni
 
 ## Configuration and security
 
-Database credentials and the movie API key are read from environment variables. Use `.env.example` as a template and keep personal credentials in `.env`, which is ignored by Git. If a credential was ever committed to a shared repository, rotate it even after removing it from the working tree because it remains in Git history.
+Database credentials and the movie API key are read from environment variables. The movie information service uses the [TMDB API](https://www.themoviedb.org/documentation/api) to retrieve movie details. Create a TMDB developer API key from your TMDB account and set it as `MOVIE_API_KEY` in your local `.env`, using `.env.example` as a template.
