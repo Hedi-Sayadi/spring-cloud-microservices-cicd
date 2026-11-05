@@ -43,7 +43,7 @@ Containerized movie-platform backend built with Spring Boot and Spring Cloud. Th
 
 ## Run locally
 
-1. Copy `.env.example` to `.env` and set local values. Never commit `.env`.
+1. Copy `.env.example` to `.env` and set local values.
 2. Start the complete platform with locally built images:
 
    ```bash
@@ -98,7 +98,3 @@ Configure a Jenkins credential with the ID `docker-hub-credentials` before runni
 ## Configuration and security
 
 Database credentials and the movie API key are read from environment variables. Use `.env.example` as a template and keep personal credentials in `.env`, which is ignored by Git. If a credential was ever committed to a shared repository, rotate it even after removing it from the working tree because it remains in Git history.
-
-## License
-
-This project is available for portfolio and educational purposes.
