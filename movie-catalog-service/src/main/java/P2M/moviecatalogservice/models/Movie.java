@@ -1,4 +1,4 @@
-package P2M.moviecatatalogservice.models;
+package P2M.moviecatalogservice.models;
 
 public class Movie {
     private String movieId ;

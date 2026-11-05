@@ -1,10 +1,10 @@
-package P2M.moviecatatalogservice;
+package P2M.moviecatalogservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MovieCatatalogServiceApplicationTests {
+class MovieCatalogServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

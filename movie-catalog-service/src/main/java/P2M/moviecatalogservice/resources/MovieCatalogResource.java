@@ -1,7 +1,7 @@
-package P2M.moviecatatalogservice.resources;
-import P2M.moviecatatalogservice.models.CatalogItem;
-import P2M.moviecatatalogservice.models.Movie;
-import P2M.moviecatatalogservice.models.UserRating;
+package P2M.moviecatalogservice.resources;
+import P2M.moviecatalogservice.models.CatalogItem;
+import P2M.moviecatalogservice.models.Movie;
+import P2M.moviecatalogservice.models.UserRating;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;

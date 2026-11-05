@@ -55,18 +55,18 @@ pipeline {
             }
         }
 
-    //  3/  *********Microservice : movie-catatalog-service*********** 
+    //  3/  *********Microservice : movie-catalog-service*********** 
 
-         stage("build jar, build and push docker images for movie-catatalog-service"){
+         stage("build jar, build and push docker images for movie-catalog-service"){
             steps {
-                dir ('movie-catatalog-service') {
+                dir ('movie-catalog-service') {
                script {
                          echo 'building the application'
                          sh 'mvn package'
-                         sh 'docker build -t hedisayadi/movie-catatalog-service:1.0 .'
+                         sh 'docker build -t hedisayadi/movie-catalog-service:1.0 .'
                          sh 'export DOCKER_CLIENT_TIMEOUT=120'
                          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                         sh 'docker push hedisayadi/movie-catatalog-service:1.0'
+                         sh 'docker push hedisayadi/movie-catalog-service:1.0'
        
                 }
                 }

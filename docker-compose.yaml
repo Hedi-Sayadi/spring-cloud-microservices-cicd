@@ -1,36 +1,32 @@
 services:
-# container name
-  postgres: 
+  postgres:
     image: postgres
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: change-me
-      POSTGRES_DB: ratingsdatacon
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - dbdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
       - postgres
-    
 
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: change-me
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - "${PGADMIN_PORT:-5050}:80"
-      # 5050 is the default value for the PGADMIN_PORT environment variable if it's not set.
-      # 80 is the port number inside the container that should be exposed to the host machine.
-      # ${PGADMIN_PORT:-5050} is a shell syntax that substitutes the value of PGADMIN_PORT if it's set, and the default value of 5050 if it's not set. 
     networks:
-        - postgres
+      - postgres
+
   movie_catalogue_service:
     build:
-     context: ./movie-catatalog-service/    
+      context: ./movie-catalog-service/
     ports:
-      - 8081:8081
+      - "8081:8081"
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka
       - eureka.client.register-with-eureka=true
@@ -44,11 +40,14 @@ services:
 
   movie_info_service:
     build:
-     context: ./movie-info-service/    
+      context: ./movie-info-service/
     ports:
-      - 8082:8082
+      - "8082:8082"
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres:5432/movieinfocon
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MOVIE_API_KEY=${MOVIE_API_KEY}
       - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka
       - eureka.client.register-with-eureka=true
       - eureka.client.fetch-registry=true
@@ -60,11 +59,13 @@ services:
 
   movie_data_service:
     build:
-     context: ./ratings-data-service/    
+      context: ./ratings-data-service/
     ports:
-      - 8083:8083
+      - "8083:8083"
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres:5432/ratingsdatacon
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka
       - eureka.client.register-with-eureka=true
       - eureka.client.fetch-registry=true
@@ -73,105 +74,32 @@ services:
     depends_on:
       - discovery
       - postgres
-      
+
   discovery:
-    build: 
+    build:
       context: ./discovery-server/
     ports:
-      - 8761:8761
+      - "8761:8761"
     networks:
       - postgres
-  
+
   api_gateway:
-      build: 
-        context: ./api-Gateway/
-      ports:
-        - 8084:8084
-      networks:
-        - postgres
-      environment:
-        - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka
-        - eureka.client.register-with-eureka=true
-        - eureka.client.fetch-registry=true
-      depends_on:
-        - discovery
-    
- 
- 
+    build:
+      context: ./api-Gateway/
+    ports:
+      - "8084:8084"
+    networks:
+      - postgres
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka
+      - eureka.client.register-with-eureka=true
+      - eureka.client.fetch-registry=true
+    depends_on:
+      - discovery
+
 volumes:
-  dbdata: 
+  dbdata:
+
 networks:
   postgres:
     driver: bridge
-    # driver: bridge : allowos containers to communicate with each other
-
-
-
-
-
-
-# services:
-# # container name
-#   postgres: 
-#     image: postgres
-#     environment:
-#       POSTGRES_USER: myuser
-#       POSTGRES_PASSWORD: change-me
-#       POSTGRES_DB: ratingsdatacon
-#     volumes:
-#       - dbdata:/var/lib/postgresql/data
-#     ports:
-#       - "5432:5432"
-#     networks:
-#       - postgres
-    
-
-#   pgadmin:
-#     image: dpage/pgadmin4
-#     environment:
-#       PGADMIN_DEFAULT_EMAIL: admin@example.com
-#       PGADMIN_DEFAULT_PASSWORD: change-me
-#     ports:
-#       - "${PGADMIN_PORT:-5050}:80"
-#       # 5050 is the default value for the PGADMIN_PORT environment variable if it's not set.
-#       # 80 is the port number inside the container that should be exposed to the host machine.
-#       # ${PGADMIN_PORT:-5050} is a shell syntax that substitutes the value of PGADMIN_PORT if it's set, and the default value of 5050 if it's not set. 
-#     networks:
-#         - postgres
-#   movie_info_service:
-#     build:
-#      context: ./movie-info-service/    
-#     ports:
-#       - 8082:8082
-#     environment:
-#       - spring.datasource.url=jdbc:postgresql://postgres:5432/movieinfocon
-#       - eureka.client.serviceUrl.defaultZone=http://server_discovery:8761/eureka
-#       - eureka.client.register-with-eureka=true
-#       - eureka.client.fetch-registry=true
-#     networks:
-#       - postgres
-#     depends_on:
-#       - pgadmin
-#       - postgres
-#       - server_discovery
-#   server_discovery:
-#     build: 
-#       context: ./discovery-server/
-#     ports:
-#       - 8761:8761
-#     networks:
-#       - postgres
-#     # networks:
-#     # postgres:
-#     #   aliases:
-#     #     - server_discovery
-#     #     - movie_info_service
-      
-
-# volumes:
-#   dbdata: 
-# networks:
-#   postgres:
-#     driver: bridge
-#     # driver: bridge : allowos containers to communicate with each other 
-

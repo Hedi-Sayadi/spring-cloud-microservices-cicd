@@ -1,0 +1,22 @@
+# Maven
+**/target/
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/release.properties
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,4 +1,4 @@
-package P2M.moviecatatalogservice;
+package P2M.moviecatalogservice;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.boot.SpringApplication;
@@ -12,10 +12,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class MovieCatatalogServiceApplication {
+public class MovieCatalogServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MovieCatatalogServiceApplication.class, args);
+		SpringApplication.run(MovieCatalogServiceApplication.class, args);
 	}
 	//1ere methiode avec RestTemplate
 	@LoadBalanced

@@ -1,4 +1,4 @@
-package P2M.moviecatatalogservice.models;
+package P2M.moviecatalogservice.models;
 
 public class Rating {
     private String movieId ;
